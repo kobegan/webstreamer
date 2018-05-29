@@ -1,6 +1,7 @@
 
 const WebStreamer = require('./lib/webstreamer').WebStreamer;
 var webstreamer_ = null;
+var tesseract = require('./lib/tesseract.js');
 
 function Initialize(options) {
     if (webstreamer_) {
@@ -70,11 +71,11 @@ class RTSPAnalyzer extends _RTSPAnalyzer {
 
 var _WebRTCAnalyzer = require('./lib/rtspanalyzer').WebRTCAnalyzer;
 class WebRTCAnalyzer extends _WebRTCAnalyzer {
-    constructor(name, signal_bridge, id = 1234, option = undefined) {
+    constructor(name, signal_bridge, role, id = 1234, option = undefined) {
         if (!option)
-            super(webstreamer_, name, signal_bridge, id, default_option);
+            super(webstreamer_, name, signal_bridge, id, default_option, role);
         else
-            super(webstreamer_, name, signal_bridge, id, option);
+            super(webstreamer_, name, signal_bridge, id, option, role);
         webstreamer_.apps_[`${this.name}@${this.type}`] = this;
     }
 }
@@ -119,6 +120,7 @@ module.exports = {
     GStreamerVideoTestSrcAnalyzer: GStreamerVideoTestSrcAnalyzer,
     GStreamerAudioTestSrcAnalyzer: GStreamerAudioTestSrcAnalyzer,
     LiveStream: LiveStream,
-    WebRTCAnalyzer: WebRTCAnalyzer
+    WebRTCAnalyzer: WebRTCAnalyzer,
+    tesseract: tesseract
 
 };
